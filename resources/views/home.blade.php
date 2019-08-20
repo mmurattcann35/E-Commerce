@@ -77,6 +77,12 @@
                             <a href="{{route('product.detail',$ahead->product->slug)}}"><img src="http://lorempixel.com/400/400/food/{{$i+1}}"></a>
                             <p><a href="{{route('product.detail',$ahead->product->slug)}}">{{$ahead->product->name}}</a></p>
                             <p class="price">{{$ahead->product->price}}</p>
+                            <form action="{{route('add.cart')}}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{$ahead->id}}">
+                                <input type="submit" class="btn btn-theme" value="Sepete Ekle">
+
+                            </form>
                         </div>
                      @endforeach
                     </div>
@@ -94,6 +100,12 @@
                                 <a href="{{route('product.detail',$best_seller->product->slug)}}"><img src="http://lorempixel.com/400/400/food/{{$i+2}}"></a>
                                 <p><a href="{{route('product.detail',$best_seller->product->slug)}}">{{$best_seller->product->name}}</a></p>
                                 <p class="price">{{$best_seller->product->price}}</p>
+                                <form action="{{route('add.cart')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{$best_seller->id}}">
+                                    <input type="submit" class="btn btn-theme" value="Sepete Ekle">
+
+                                </form>
                             </div>
                         @endforeach
                     </div>
@@ -111,6 +123,13 @@
                                 <a href="{{route('product.detail',$discounted->product->slug)}}"><img src="http://lorempixel.com/400/400/food/{{$i+6}}"></a>
                                 <p><a href="{{route('product.detail',$discounted->product->slug)}}">{{$discounted->product->name}}</a></p>
                                 <p class="price">{{$discounted->product->price}}</p>
+                                <form action="{{route('add.cart')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{$discounted
+                                    ->id}}">
+                                    <input type="submit" class="btn btn-theme" value="Sepete Ekle">
+
+                                </form>
                             </div>
                         @endforeach
                     </div>

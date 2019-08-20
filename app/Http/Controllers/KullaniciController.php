@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 
 use App\Mail\UserRegistrationMail;
+use App\Models\Cart;
+use App\Models\CartProduct;
 use App\User;
 use Illuminate\Http\Request;
 
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -61,7 +64,38 @@ class KullaniciController extends Controller
 
         if(auth()->attempt(['email' => $request->email, 'password' => $request->password],$request->has('remember'))){
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            $active_cart_id = Cart::active_cart_id();
+
+            if(Auth::check() && is_null($active_cart_id)){
+                $active_cart    = Cart::create(['user_id', auth()->id()]);
+                $active_cart_id = $active_cart->id;
+            }
+            session()->put('active_cart_id',$active_cart_id);
+
+            if(\Gloudemans\Shoppingcart\Facades\Cart::count() > 0)
+            {
+                foreach (Gloudemans\Shoppingcart\Facades\Cart::content() as $cartItem)
+                {
+                    CartProduct::updateOrCreate(
+                        ['cart_id'    => $active_cart_id,'product_id' => $cartItem->id],
+                        ['quantity' => $cartItem->qty, 'price' => $cartItem->price, 'state' => 'Beklemede']
+                    );
+                }
+            }
+            \Gloudemans\Shoppingcart\Facades\Cart::destroy();
+            $cartProducts = CartProduct::with('product')->where('cart_id',$active_cart_id)->get();
+
+            foreach ($cartProducts as $cartProduct){
+
+                \Gloudemans\Shoppingcart\Facades\Cart::add($cartProduct->product->id,
+                        $cartProduct->product->name,
+                        $cartProduct->quantity,
+                        $cartProduct->price,
+                        ['slug' => $cartProduct->product->slug]
+                    );
+            }
+
+            return redirect()->route('home');
         }else{
             return back()->with('error','Hatalı Giriş!');
         }

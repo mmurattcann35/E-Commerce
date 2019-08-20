@@ -9,46 +9,57 @@
 @section('content')
     <div class="container">
         <div class="bg-content">
-            <h2>Sipariş (SP-00123)</h2>
+            <h2>Sipariş (SP-{{$order->id}})</h2>
             <table class="table table-bordererd table-hover">
-                <tr>
-                    <th>Ürün</th>
-                    <th>Tutar</th>
-                    <th>Adet</th>
-                    <th>Ara Toplam</th>
-                    <th>Durum</th>
-                </tr>
-                <tr>
-                    <td> <img src="http://lorempixel.com/120/100/food/2"> Ürün adı</td>
-                    <td>18.99</td>
-                    <td>1</td>
-                    <td>18.99</td>
-                    <td>
-                        Sipariş alındı, <br> Onaylandı, <br> Kargoya verildi, <br> Bir sorun var. İletişime geçin!
-                    </td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th>Toplam Tutar (KDV Dahil)</th>
-                    <th>18.99</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th>Kargo</th>
-                    <th>Ücretsiz</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th>Sipariş Toplamı</th>
-                    <th>18.99</th>
-                    <th></th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Ürün</th>
+                        <th>Ürün Adı</th>
+                        <th>Tutar</th>
+                        <th>Adet</th>
+                        <th>Ara Toplam</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($order->cart->cart_products as $cartProduct)
+                    <tr>
+                        <td width="250">
+                            <a href="{{route('product.detail', ['slug' => $cartProduct->product->slug])}}">
+                                <img src="http://lorempixel.com/120/100/food/2">
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{route('product.detail', ['slug' => $cartProduct->product->slug])}}">
+                                {{$cartProduct->product->name}}
+                            </a>
+                        </td>
+                        <td>{{$cartProduct->price}} ₺</td>
+                        <td>{{$cartProduct->quantity}}</td>
+                        <td>{{$cartProduct->price * $cartProduct->quantity}} ₺</td>
+                        <td>{{$cartProduct->state}}</td>
+                    </tr>
+                @endforeach
+                    <tr>
+                        <th colspan="2"  >Sipariş Toplamı</th>
+                        <th> {{$order->order_price}}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" >Toplam Tutar (KDV Dahil)</th>
+                        <th>{{$order->order_price * ((100 + config('cart.tax'))/100)}} ₺</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" >Sipariş Durumu</th>
+                        <th><small>{{$order->order_state}} </small></th>
+                    </tr>
 
+
+                </tbody>
+
+                <tfoot>
+                <tr></tr><tr></tr>
+
+                </tfoot>
             </table>
         </div>
     </div>

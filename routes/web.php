@@ -21,11 +21,18 @@ Route::get('/product/{slug}','ProductController@index')->name('product.detail');
 Route::post('/search','ProductController@search')->name('search');
 Route::get('/search','ProductController@search')->name('search');
 
+Route::group(['prefix' => 'cart'], function (){
+    Route::get('/','CartController@index')->name('cart');
+    Route::post('/add','CartController@addToCart')->name('add.cart');
+    Route::delete('/remove/{rowId}','CartController@destroy')->name('remove.cart');
+    Route::delete('/truncate','CartController@truncateCart')->name('truncate.cart');
+    Route::patch('/update/{id}','CartController@update')->name('update.cart');
+});
+
+Route::get('/checkout','CheckoutController@index')->name('checkout');
+Route::post('/payment','CheckoutController@payment')->name('payment');
+
 Route::group(['middleware' => 'auth'], function (){
-
-    Route::get('/cart','CartController@index')->name('cart');
-
-    Route::get('/checkout','CheckoutController@index')->name('checkout');
 
     Route::get('/orders','OrderController@index')->name('orders');
 
@@ -43,7 +50,7 @@ Route::group(['prefix' => 'user'], function (){
 
     Route::post('/logout','KullaniciController@logout')->name('user.logout');
 
-    Route::post('/register','KullaniciController@register')->name('user.regist  er');
+    Route::post('/register','KullaniciController@register')->name('user.register');
 
     Route::get('/activation/{activation_key}','KullaniciController@activation')->name('user.activation');
 

@@ -8,31 +8,35 @@
 
 @section('content')
     <div class="container">
+        @include('layouts.frontend.partial.alert')
         <div class="bg-content">
             <h2>Siparişler</h2>
-            <p>Henüz siparişiniz yok</p>
-            <table class="table table-bordererd table-hover">
-                <tr>
-                    <th>Sipariş Kodu</th>
-                    <th>Sipariş Tarihi</th>
-                    <th>KDV</th>
-                    <th>Kargo</th>
-                    <th>Toplam Tutar</th>
-                    <th>Durum</th>
-                    <th>İşlem</th>
-                </tr>
-                <tr>
-                    <td>SP-00123</td>
-                    <td>25.09.2017</td>
-                    <td>2.99</td>
-                    <td>0</td>
-                    <td>18.99</td>
-                    <td>
-                        Sipariş alındı, <br> Onaylandı, <br> Kargoya verildi, <br> Bir sorun var. İletişime geçin!
-                    </td>
-                    <td><a href="#" class="btn btn-sm btn-success">Detay</a></td>
-                </tr>
+            @if($orders->count() <= 0)
+                <p class="alert alert-danger">Henüz kayıtlı siparişiniz bulunmamaktadır.</p>
+            @else
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Sipariş Kodu</th>
+                        <th>Tutar</th>
+                        <th>Toplam ürün</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($orders as $order)
+                    <tr>
+                        <td>SP-{{$order->id}}</td>
+                        <td>{{$order->order_price * ((100 +config('cart.tax'))/100)}}</td>
+                        <td>{{$order->cart->cart_product_count($order->cart->id)}}</td>
+                        <td>{{$order->order_state}}</td>
+                        <td><a href="{{route('order.detail',$order->id)}}" class="btn btn-sm btn-success">Detay</a></td>
+                    </tr>
+                @endforeach
+                </tbody>
             </table>
+            @endif
         </div>
     </div>
 @endsection

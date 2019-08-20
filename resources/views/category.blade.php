@@ -50,7 +50,12 @@
                                     <a href="{{route('product.detail',$product->slug)}}"><img src="http://lorempixel.com/400/400/food/1"></a>
                                     <p><a href="{{route('product.detail',$product->slug)}}">{{$product->name}}</a></p>
                                     <p class="price">{{$product->price}} ₺</p>
-                                    <p><a href="#" class="btn btn-theme">Sepete Ekle</a></p>
+                                    <form action="{{route('add.cart')}}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                                        <input type="submit" class="btn btn-theme" value="Sepete Ekle">
+
+                                    </form>
                                 </div>
                             @endforeach
                         @else

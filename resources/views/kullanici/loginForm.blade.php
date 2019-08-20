@@ -16,7 +16,7 @@
                     <div class="panel-heading">Oturum Aç</div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{route('user.login')}}">
-                            @csrf
+                            {{csrf_field()}}
                             <div class="form-group">
                                 <label for="email" class="col-md-4 control-label">Email</label>
                                 <div class="col-md-6">

@@ -9,6 +9,9 @@
 @section('content')
     <div class="container">
         <div class="bg-content">
+
+            <form action="{{route('payment')}}" method="POST">
+                @csrf
             <h2>Ödeme</h2>
             <div class="row">
                 <div class="col-md-5">
@@ -23,13 +26,20 @@
                             <div class="col-md-6">
                                 Ay
                                 <select name="cardexpiredatemonth" id="cardexpiredatemonth" class="form-control" required>
-                                    <option>1</option>
+                                    @for($i = 1; $i<=12; $i++)
+                                        <option value="{{$i}}">{{$i}}</option>
+                                    @endfor
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 Yıl
                                 <select name="cardexpiredateyear" class="form-control" required>
-                                    <option>2017</option>
+                                    @php
+                                            $date = date('Y')+15;
+                                    @endphp
+                                    @for($i=$date; $i >= 1950 ; $i--)
+                                        <option value="{{$i}}" {{ $i == date('Y') ? "selected":""}}>{{$i}}</option>
+                                    @endfor
                                 </select>
                             </div>
                         </div>
@@ -42,7 +52,6 @@
                             </div>
                         </div>
                     </div>
-                    <form>
                         <div class="form-group">
                             <div class="checkbox">
                                 <label><input type="checkbox" checked> Ön bilgilendirme formunu okudum ve kabul ediyorum.</label>
@@ -53,25 +62,36 @@
                                 <label><input type="checkbox" checked> Mesafeli satış sözleşmesini okudum ve kabul ediyorum.</label>
                             </div>
                         </div>
-                    </form>
+
                     <button type="submit" class="btn btn-success btn-lg">Ödeme Yap</button>
                 </div>
-                <div class="col-md-7">
-                    <h4>Ödenecek Tutar</h4>
-                    <span class="price">18.92 <small>TL</small></span>
-
-                    <h4>Kargo</h4>
-                    <span class="price">0 <small>TL</small></span>
-
-                    <h4>Teslimat Bilgileri</h4>
-                    <p>Teslimat Adresi </p>
-                    <a href="#">Değiştir</a>
-
-                    <h4>Kargo</h4>
-                    <p>Ücretsiz
+                <div class="col-md-7 ">,
+                    <div class="text-center ">
+                        <h4>Ödenecek Tutar</h4>
+                        <span class="price">{{\Gloudemans\Shoppingcart\Facades\Cart::total()}}<small>TL</small></span><hr>
+                        <h4>İletişim ve Fatura Bilgileri</h4>
+                        <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label> Ad Soyad</label>
+                            <input type="text" id="name" class="form-control" name="user_name" value="{{auth()->user()->name}}">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label> Telefon</label>
+                            <input type="text" id="phone" class="form-control" name="phone" value="{{$userDetail->phone}}">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label> Cep Telefonu</label>
+                            <input type="text" id="gsm_phone" class="form-control" name="gsm_phone" value="{{$userDetail->gsm_phone}}">
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <label> Adres</label>
+                            <textarea id="address" class="form-control" name="address"  rows="6"> {{$userDetail->address}}</textarea>
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
-
+            </form>
         </div>
     </div>
 @endsection
