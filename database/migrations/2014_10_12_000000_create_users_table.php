@@ -20,7 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('activation_key')->nullable();
-            $table->string('is_active')->default(0);
+            $table->tinyInteger('is_active')->default(0);
+            $table->tinyInteger('is_admin')->default(0);
             $table->string('password');
             $table->rememberToken();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
