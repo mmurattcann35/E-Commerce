@@ -67,6 +67,9 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace' => 'Admin'],functio
         Route::resource('user','KullaniciController');
         Route::get('search-user','KullaniciController@search')->name('user.search');
         Route::post('logout','KullaniciController@logout')->name('logout');
+
+        Route::resource('category','CategoryController');
+        Route::get('search-category','CategoryController@search')->name('category.search');
     });
 
 

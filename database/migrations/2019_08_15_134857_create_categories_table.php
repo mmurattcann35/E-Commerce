@@ -7,11 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCategoriesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
@@ -20,8 +16,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name',60);
             $table->string('slug',75);
             $table->string('icon',40)->default('fa fa-list');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
             $table->softDeletes()->nullable();
         });
     }
