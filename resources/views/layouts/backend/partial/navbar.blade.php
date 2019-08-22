@@ -18,15 +18,15 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#">Home</a>
+                    <a href="{{route('home')}}"><i class="fa fa-home"></i>&nbsp;Anasayfa</a>
                 </li>
                 <li>
-                    <a href="#">Settings</a>
+                    <a href="#"><i class="fa fa-cog"></i>&nbsp;Ayarlar</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user('name')}}
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::guard('administration')->user()->name}}
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">

@@ -12,7 +12,7 @@
 <body>
 <div class="container">
     @include('layouts.backend.partial.alert')
-    <form  action="{{route('admin.login')}}" method="POST" class="form-signin">
+    <form  action="{{route('admin.admin.login')}}" method="POST" class="form-signin">
         @csrf
         <img src="{{asset('assets/backend/img/logo.png')}}" class="logo">
 

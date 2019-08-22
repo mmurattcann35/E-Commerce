@@ -61,7 +61,12 @@ class KullaniciController extends Controller
             'email'    => 'required|email',
             'password' => 'required'
         ]);
-        if(auth()->attempt(['email' => $request->email, 'password' => $request->password],$request->has('remember'))){
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'is_active' => 1
+        ];
+        if(auth()->attempt($credentials,$request->has('remember'))){
             $request->session()->regenerate();
             $active_cart_id = Cart::active_cart_id();
 

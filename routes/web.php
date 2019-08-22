@@ -56,24 +56,24 @@ Route::group(['prefix' => 'user'], function (){
 
 });
 
-Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
+Route::group(['as'=>'admin.','prefix' => 'admin','namespace' => 'Admin'],function (){
+
+    Route::match(['get','post'],'/login','KullaniciController@login')->name('admin.login');
 
     Route::group(['middleware' => 'admin'], function (){
 
         Route::get('/','DashboardController@index')->name('dashboard');
 
+        Route::resource('user','KullaniciController');
+        Route::get('search-user','KullaniciController@search')->name('user.search');
+        Route::post('logout','KullaniciController@logout')->name('logout');
     });
 
-   /* Route::get('/login','KullaniciController@adminLogin')->name('admin.loginPage');
-    Route::post('/admin-login','KullaniciController@login')->name('admin.login');*/
 
-    Route::match(['get','post'],'/login','KullaniciController@login')->name('admin.login');
-
-    Route::post('logout','KullaniciController@logout')->name('admin.logout');
 });
-/*
-Route::get('/test/mail', function (){
-    $user = App\User::find(3);
-    return new App\Mail\UserRegistrationMail($user);
 
+/*
+    Route::get('/test/mail', function (){
+        $user = App\User::find(3);
+        return new App\Mail\UserRegistrationMail($user);
 });*/

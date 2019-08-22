@@ -17,11 +17,11 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
 
-        if(Auth::guard('administration')->check() && $userRole = Auth::guard('administration')->user()->is_admin)
+        if(Auth::guard('administration')->check() && $userRole = Auth::guard('administration')->user()->is_admin == 1)
         {
             return $next($request);
         }
 
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.admin.login');
     }
 }
