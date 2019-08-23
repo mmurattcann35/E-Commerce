@@ -19,7 +19,9 @@
         <div class="bg-content">
             <div class="row">
                 <div class="col-md-5">
-                    <img src="http://lorempixel.com/400/200/food/1">
+                    <img  class="detail-image img-responsive"
+                          src="{{'/uploads/products/'.$product->detail->image}}"
+                          alt="{{$product->name}}">
                     <hr>
                     <div class="row">
                         <div class="col-xs-3">

@@ -37,7 +37,9 @@
                     <div class="carousel-inner" role="listbox">
                         @foreach($product_slider as $i => $slider)
                             <div class="item {{$i==0 ? "active":""}}">
-                                <img src="http://lorempixel.com/640/400/food/{{ $i+1 }}" alt="{{$slider->product->name}}">
+                                <img  class="slider-image img-responsive"
+                                      src="{{'/uploads/products/'.$slider->product->detail->image}}"
+                                      alt="{{$slider->name}}">
                                 <div class="carousel-caption">
                                     {{$slider->product->name}}
                                 </div>
@@ -59,7 +61,9 @@
                     <div class="panel-heading">Günün Fırsatı</div>
                     <div class="panel-body">
                         <a href="{{route('product.detail',$product_of_day->slug)}}">
-                            <img src="http://lorempixel.com/400/485/food/1" class="img-responsive">
+                            <img  class="product-img img-responsive"
+                                  src="{{'/uploads/products/'.$product_of_day->detail->image}}"
+                                  alt="{{$product_of_day->name}}">
                         </a>
                     </div>
                 </div>
@@ -74,7 +78,11 @@
                     <div class="row">
                       @foreach($product_ahead as $i=>$ahead)
                         <div class="col-md-3 product">
-                            <a href="{{route('product.detail',$ahead->product->slug)}}"><img src="http://lorempixel.com/400/400/food/{{$i+1}}"></a>
+                            <a href="{{route('product.detail',$ahead->product->slug)}}">
+                                <img  class="product-img img-responsive"
+                                      src="{{'/uploads/products/'.$ahead->product->detail->image}}"
+                                      alt="{{$ahead->product->name}}">
+                            </a>
                             <p><a href="{{route('product.detail',$ahead->product->slug)}}">{{$ahead->product->name}}</a></p>
                             <p class="price">{{$ahead->product->price}}</p>
                             <form action="{{route('add.cart')}}" method="POST">
@@ -97,7 +105,11 @@
                     <div class="row">
                         @foreach($product_best_seller as $i=>$best_seller)
                             <div class="col-md-3 product">
-                                <a href="{{route('product.detail',$best_seller->product->slug)}}"><img src="http://lorempixel.com/400/400/food/{{$i+2}}"></a>
+                                <a href="{{route('product.detail',$best_seller->product->slug)}}">
+                                    <img  class="product-img img-responsive"
+                                          src="{{'/uploads/products/'.$best_seller->product->detail->image}}"
+                                          alt="{{$best_seller->product->name}}">
+                                </a>
                                 <p><a href="{{route('product.detail',$best_seller->product->slug)}}">{{$best_seller->product->name}}</a></p>
                                 <p class="price">{{$best_seller->product->price}}</p>
                                 <form action="{{route('add.cart')}}" method="POST">
@@ -120,7 +132,11 @@
                         @foreach($product_discounted as $i=>$discounted)
 
                             <div class="col-md-3 product">
-                                <a href="{{route('product.detail',$discounted->product->slug)}}"><img src="http://lorempixel.com/400/400/food/{{$i+6}}"></a>
+                                <a href="{{route('product.detail',$discounted->product->slug)}}">
+                                    <img  class="product-img img-responsive"
+                                          src="{{'/uploads/products/'.$discounted->product->detail->image}}"
+                                          alt="{{$discounted->product->name}}">
+                                </a>
                                 <p><a href="{{route('product.detail',$discounted->product->slug)}}">{{$discounted->product->name}}</a></p>
                                 <p class="price">{{$discounted->product->price}}</p>
                                 <form action="{{route('add.cart')}}" method="POST">

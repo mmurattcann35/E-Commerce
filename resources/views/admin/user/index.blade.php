@@ -30,6 +30,9 @@
             <button type="submit" class="btn btn-primary" >Ara</button>
             <a href="{{route('admin.user.index')}}" class="btn btn-default">Temizle</a>
         </form>
+        @if(isset($search))
+            "{{$search}}" Kelimesine ait arama sonuçları({{$users->total()}})
+        @endif
     </div>
 
 

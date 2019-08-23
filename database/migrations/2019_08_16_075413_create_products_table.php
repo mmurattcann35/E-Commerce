@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('slug',160);
             $table->text('description');
             $table->decimal('price',6,2);
+            $table->string('image',75)->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->softDeletes()->nullable();

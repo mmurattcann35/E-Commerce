@@ -30,6 +30,7 @@ class ProductsTableSeeder extends Seeder
             ]);
 
            $detail =$product->detail()->create([
+                'image'   => "default.png",
                 'show_in_slider' => rand(0,1),
                 'show_product_of_day' => rand(0,1),
                 'show_ahead' => rand(0,1),

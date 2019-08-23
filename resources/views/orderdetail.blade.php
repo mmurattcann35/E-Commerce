@@ -26,7 +26,9 @@
                     <tr>
                         <td width="250">
                             <a href="{{route('product.detail', ['slug' => $cartProduct->product->slug])}}">
-                                <img src="http://lorempixel.com/120/100/food/2">
+                                <img  class="cart-image img-responsive"
+                                      src="{{'/uploads/products/'.$cartProduct->product->detail->image}}"
+                                      alt="{{$cartProduct->product->name}}">
                             </a>
                         </td>
                         <td>

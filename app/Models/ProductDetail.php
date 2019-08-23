@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductDetail extends Model
 {
-    protected  $table = 'product_detail';
-
+    protected  $table   = 'product_detail';
+    protected $guarded  = ['id'];
     public  $timestamps = false;
 
     public function product(){

@@ -33,6 +33,7 @@
                 @endguest
 
                 @auth()
+                    <li><a href="{{route('admin.dashboard')}}">Yönetim Paneli</a></li>
                     <li class="dropdown">
 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{auth()->user()->name}} <span class="caret"></span></a>

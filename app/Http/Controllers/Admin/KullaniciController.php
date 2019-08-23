@@ -91,7 +91,7 @@ class KullaniciController extends Controller
             ->orWhere('email','like','%$search%')
             ->orderBy('name','ASC')
             ->paginate(5);
-        return view('admin.user.index',compact('users'));
+        return view('admin.user.index',compact('users','search'));
     }
 
     public function login(Request $request){

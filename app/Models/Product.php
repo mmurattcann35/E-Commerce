@@ -11,14 +11,14 @@ class Product extends Model
 
     protected $table   = 'products';
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     public function categories(){
         return $this->belongsToMany('App\Models\Category','category_product');
     }
 
     public function detail(){
-        return  $this->hasOne('App\Models\ProductDetail');
+        return  $this->hasOne('App\Models\ProductDetail')->withDefault();
     }
 
 }

@@ -47,7 +47,11 @@
                         @if($products->count() > 0)
                             @foreach($products as $product)
                                 <div class="col-md-3 product">
-                                    <a href="{{route('product.detail',$product->slug)}}"><img src="http://lorempixel.com/400/400/food/1"></a>
+                                    <a href="{{route('product.detail',$product->slug)}}">
+                                        <img  class="product-image img-responsive"
+                                              src="{{'/uploads/products/'.$product->detail->image}}"
+                                              alt="{{$product->name}}">
+                                    </a>
                                     <p><a href="{{route('product.detail',$product->slug)}}">{{$product->name}}</a></p>
                                     <p class="price">{{$product->price}} ₺</p>
                                     <form action="{{route('add.cart')}}" method="POST">
