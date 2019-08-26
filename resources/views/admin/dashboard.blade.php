@@ -9,42 +9,54 @@
 @section('content')
     <section class="row text-center placeholders">
         <div class="col-6 col-sm-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Header</div>
+            <div class="panel panel-info">
+                <div class="panel-heading">Bekleyen Siparişler</div>
                 <div class="panel-body">
-                    <h4>123</h4>
-                    <p>Data</p>
+                    <h4>{{$statistics['waiting_orders_count']   }}</h4>
+                    <small><p>Adet sipariş bekiyor.</p></small>
                 </div>
             </div>
         </div>
         <div class="col-6 col-sm-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Header</div>
+            <div class="panel panel-success">
+                <div class="panel-heading">Kullanıcılar</div>
                 <div class="panel-body">
-                    <h4>123</h4>
-                    <p>Data</p>
+                    <h4>{{$statistics['users_count']   }}</h4>
+                    <small><p>Adet kullanıcı bulunmakta</p></small>
                 </div>
             </div>
         </div>
+
         <div class="col-6 col-sm-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Header</div>
+            <div class="panel panel-warning">
+                <div class="panel-heading">Kategoriler</div>
                 <div class="panel-body">
-                    <h4>123</h4>
-                    <p>Data</p>
+                    <h4>{{$statistics['categories_count']   }}</h4>
+                    <small><p>Adet kategori bulunmakta</p></small>
                 </div>
             </div>
         </div>
+
         <div class="col-6 col-sm-3">
             <div class="panel panel-primary">
-                <div class="panel-heading">Header</div>
+                <div class="panel-heading">Tamamlanan Siparişler</div>
                 <div class="panel-body">
-                    <h4>123</h4>
-                    <p>Data</p>
+                    <h4>{{$statistics['finished_orders_count']}}</h4>
+                    <p>Adet Sipariş Tamamlandı</p>
                 </div>
             </div>
+        </div>
+        <div class="col-md-8" >
+            <div class="panel panel-primary" >
+                <div class="panel-heading">Çok Satan ürünler</div>
+                <div class="panel-body">
+                    <canvas id="bestSellerChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+
         </div>
     </section>
+
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
         Launch demo modals
@@ -144,9 +156,56 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
+
 @endsection
 
 @push('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    @php
+        $labels = "";
+        $data   = "";
+    @endphp
 
+    @foreach ($best_seller as $bestSeller)
+         @php
+            $labels .= "\"$bestSeller\",";
+            $data   .= "$bestSeller->quantity,";
+         @endphp
+    @endforeach
+
+<script>
+
+    var ctx = document.getElementById('bestSellerChart');
+    var bestSellerChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: [{!! $labels !!}],
+            datasets: [{
+                label: 'Çok Satan  Ürünler',
+                data: [{!! $data !!}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
 @endpush
 

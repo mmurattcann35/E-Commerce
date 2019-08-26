@@ -10,6 +10,9 @@
     <a href="{{route('admin.product.index')}}" class="list-group-item">
         <span class="fa fa-fw fa-barcode"></span> Ürün Yönetimi
     </a>
+    <a href="{{route('admin.order.index')}}" class="list-group-item">
+        <span class="fa fa-fw fa-shopping-cart"></span> Sipariş Yönetimi
+    </a>
     <a href="#" class="list-group-item collapsed" data-target="#submenu1" data-toggle="collapse" data-parent="#sidebar"><span class="fa fa-fw fa-dashboard"></span> Categories<span class="caret arrow"></span></a>
     <div class="list-group collapse" id="submenu1">
         <a href="#" class="list-group-item">Category</a>

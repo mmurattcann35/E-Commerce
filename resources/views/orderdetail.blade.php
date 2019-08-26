@@ -39,7 +39,7 @@
                         <td>{{$cartProduct->price}} ₺</td>
                         <td>{{$cartProduct->quantity}}</td>
                         <td>{{$cartProduct->price * $cartProduct->quantity}} ₺</td>
-                        <td>{{$cartProduct->state}}</td>
+                        <td>{{$order->order_state}}</td>
                     </tr>
                 @endforeach
                     <tr>

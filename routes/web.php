@@ -73,6 +73,10 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace' => 'Admin'],functio
 
         Route::resource('product','ProductController');
         Route::get('search-product','ProductController@search')->name('product.search');
+
+
+        Route::resource('order','OrderController');
+        Route::get('search-order','OrderController@search')->name('order.search');
     });
 
 
